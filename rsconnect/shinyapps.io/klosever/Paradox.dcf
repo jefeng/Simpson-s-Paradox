@@ -1,0 +1,11 @@
+name: Paradox
+title:
+account: klosever
+server: shinyapps.io
+appId: 183440
+bundleId: 846660
+url: https://klosever.shinyapps.io/Paradox/
+when: 1496201661.06637
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: R^2.R

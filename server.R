@@ -2,7 +2,7 @@ library(shiny)
 library(ggplot2)  
 library(mdsr)
 shinyServer(function(input, output) {
-  output$SAT<-renderTable(SAT_2010_plot2[,-c(10)])
+  output$SAT<-renderTable(SAT_2010[c(1,17,49,23,18,10,2,11,8,37),])
   observeEvent(input$newplot,{
     
     output$plot<-renderPlot({
@@ -20,7 +20,7 @@ shinyServer(function(input, output) {
     
     output$plot2<-renderPlot({
       
-      SAT_2010_plot2<-SAT_2010_new%>%
+      SAT_2010_plot2<-SAT_2010[c(1,17,49,23,18,10,2,11,8,37),]%>%
         mutate(SAT_grp=ifelse(sat_pct<=27, "Low", "High"))
       ggplot(data=SAT_2010_plot2,aes(salary,total, col=SAT_grp))+
         geom_point()+geom_smooth(method=lm, se=FALSE)+ylab("Average Total SAT Score")+

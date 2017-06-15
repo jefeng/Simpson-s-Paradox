@@ -20,7 +20,7 @@ shinyServer(function(input, output) {
       SAT_2010_plot2<-SAT_2010[c(20,21,30,38,39,5,23,49,16,27,34,42),]%>%
         mutate(SAT_grp=ifelse(sat_pct<=27, "Low", "High"))
       
-      integer=8714-input$integer
+      integer=8714-input$integer*8714
       
       low=which(SAT_2010_plot2$salary<=55051)
       high=which(SAT_2010_plot2$salary>55051)

@@ -28,7 +28,7 @@ ui<-fluidPage(
                      div(style = "position:absolute;top: 19em;right:32em;",
                      plotlyOutput("plot2")),
                      div(style = "position:absolute;top: 24em;right:12em;",
-                         img(src="jingling.png", width=260))),
+                         img(src="jinglin.jpg", width=260))),
     
     
     div(style = "position:absolute;top: 12em;right:0.5em;",

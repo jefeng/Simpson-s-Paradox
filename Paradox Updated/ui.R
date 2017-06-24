@@ -10,6 +10,7 @@ ui<-fluidPage(
   tableOutput("SAT"),
   div(style = "position:absolute;top: 4.5em;right:47em;",
    actionButton("newplot2", h5("Click here first to show the plot"))),
+  tags$style(HTML(".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: #1C2C5B}")),
   
   fluidRow(
     div(style = "position:absolute;top: 10em;right:42em;",

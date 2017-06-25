@@ -5,9 +5,9 @@ library(mdsr)
 shinyServer(function(input, output) {
   
   output$SAT<-renderTable(
-    
-    
+   
     SAT_2010[c(20,21,30,38,39,5,23,49,16,27,34,42), c(1,4,8,9)]
+    
   )
   output$text1 <- renderText({ 
     "Move the slider to see the Simpson's Paradox effect"
@@ -44,7 +44,7 @@ shinyServer(function(input, output) {
       
       
       p=ggplot(data=SAT_2010_plot2,aes(salary,total, col=SAT_grp))+geom_smooth(method='lm', se=F)+
-        labs(x="Teachers'Salaries", y="SAT Scores")+geom_point(aes(text = paste("State:", state)),size = 2.5)
+        labs(x="Teachers'Salaries", y="SAT Scores")+geom_point(aes(text = paste("State:", state)),size = 3, pch=21)
         
       
         

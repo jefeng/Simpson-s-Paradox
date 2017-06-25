@@ -28,11 +28,11 @@ ui<-fluidPage(
     conditionalPanel("input.newplot2 != 0",
                      div(style = "position:absolute;top: 19em;right:32em;",
                      plotlyOutput("plot2")),
-                     div(style = "position:absolute;top: 24em;right:12em;",
-                         img(src="jinglin.jpg", width=260))),
+                     div(style = "position:absolute;top: 20em;right:6em;",
+                         img(src="jinglin.jpg", width=350))),
     
     
-    div(style = "position:absolute;top: 12em;right:0.5em;",
+    div(style = "position:absolute;top: 9em;right:0.5em;",
     htmlOutput("text2"))
     )
 )

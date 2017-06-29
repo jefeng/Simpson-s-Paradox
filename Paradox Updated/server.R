@@ -5,7 +5,7 @@ library(mdsr)
 shinyServer(function(input, output) {
   
   output$SAT<-renderTable(
-   
+    
     SAT_2010[c(20,21,30,38,39,5,23,49,16,27,34,42), c(1,4,8,9)]
     
   )
@@ -42,36 +42,36 @@ shinyServer(function(input, output) {
       #   geom_point()+xlim(c(45111,72734))+ylim(c(1473,1781))+ylab("Average Total SAT Score")+
       #   xlab("Average Teacher Salary")
       
+      p=ggplot(data=SAT_2010_plot2,aes(salary,total, col=SAT_grp, label=state
+      ))+geom_smooth(method="lm", se=F)+
+        labs(x="Teachers'Salaries", y="SAT Scores")+geom_point(aes(text=paste("State:", state,  '</br>New Salary: ', salary,
+                                                                              '</br>New SAT Score :', total,
+                                                                              '</br>', SAT_grp)),size = 3, pch=21)
       
-      p=ggplot(data=SAT_2010_plot2,aes(salary,total, col=SAT_grp))+geom_smooth(method='lm', se=F)+
-        labs(x="Teachers'Salaries", y="SAT Scores")+geom_point(aes(text = paste("State:", state)),size = 3, pch=21)
-        
       
-        
+      
       pp=p + geom_smooth(method = "lm",se = F, color = "black", linetype = "longdash",lwd=1.5)+
         scale_colour_manual(name='',values=c('Low SAT Participation State'='orange','High SAT Participation State'='blue',
                                              'black'='black'))+ theme(legend.position="none")
       
       
-      ggplotly(pp,height=410,width = 557)
+      ggplotly(pp,height=410,width = 557, tooltip =  "text")
       
       
     })
     
-      
-      
- 
+    
+    
+    
   })
   
   output$text2 <- renderText({ 
     HTML(paste("Low Group: States have SAT Participation Rate less than 27% (National Level)",
-    "High Group: States have SAT Participation Rate greater than 27% (National Level)",
-     sep ="<br/>"))
+               "High Group: States have SAT Participation Rate greater than 27% (National Level)",
+               sep ="<br/>"))
   })
   
 }
 )
-
-
 
 

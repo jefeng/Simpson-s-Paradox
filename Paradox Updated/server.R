@@ -44,9 +44,10 @@ shinyServer(function(input, output) {
       
       p=ggplot(data=SAT_2010_plot2,aes(salary,total, col=SAT_grp, label=state
       ))+geom_smooth(method="lm", se=F)+
-        labs(x="Teachers'Salaries", y="SAT Scores")+geom_point(aes(text=paste("State:", state,  '</br>New Salary: ', salary,
-                                                                              '</br>New SAT Score :', total,
-                                                                              '</br>', SAT_grp)),size = 3, pch=21)
+        labs(x="Teachers'Salaries", y="SAT Scores")+geom_point(aes(text=paste("State:", state, "\n",
+                                                                              "New Salary:", salary,"\n",
+                                                                              'New SAT Score:', total,"\n",
+                                                                              '', SAT_grp)),size = 3, pch=21)
       
       
       
@@ -54,8 +55,8 @@ shinyServer(function(input, output) {
         scale_colour_manual(name='',values=c('Low SAT Participation State'='orange','High SAT Participation State'='blue',
                                              'black'='black'))+ theme(legend.position="none")
       
-      
       ggplotly(pp,height=410,width = 557, tooltip =  "text")
+      
       
       
     })
@@ -73,5 +74,4 @@ shinyServer(function(input, output) {
   
 }
 )
-
 

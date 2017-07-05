@@ -4,14 +4,12 @@ library(ggplot2)
 library(mdsr)
 shinyServer(function(input, output) {
   
-  output$SAT<-renderTable(
+  output$SAT1<-renderTable(
     
     SAT_2010[c(20,21,30,38,39,5,23,49,16,27,34,42), c(1,4,8,9)]
     
   )
-  output$text1 <- renderText({ 
-    "Move the slider to see the Simpson's Paradox effect"
-  })
+  
   
   observeEvent(input$newplot2,{
     
@@ -54,7 +52,6 @@ shinyServer(function(input, output) {
       pp=p + geom_smooth(method = "lm",se = F, color = "black", linetype = "longdash",lwd=1.5)+
         scale_colour_manual(name='',values=c('Low SAT Participation State'='orange','High SAT Participation State'='blue',
                                              'black'='black'))+ theme(legend.position="none")
-      
       ggplotly(pp,height=410,width = 557, tooltip =  "text")
       
       

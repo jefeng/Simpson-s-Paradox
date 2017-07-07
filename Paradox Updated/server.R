@@ -4,9 +4,11 @@ library(ggplot2)
 library(mdsr)
 shinyServer(function(input, output) {
   
+  
+  
   output$SAT1<-renderTable(
     
-    SAT_2010[c(20,21,30,38,39,5,23,49,16,27,34,42), c(1,4,8,9)]
+  SAT_2010[c(20,21,30,38,39,5,23,49,16,27,34,42), c(1,4,8,9)]
     
   )
   

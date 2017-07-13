@@ -1,56 +1,66 @@
 library(shiny)
-library(shinythemes)
+library(ggplot2)  
+library(mdsr)
+library(plotly)
 library(shinyBS)
-fluidPage(
-  theme = shinytheme("flatly"),
-  titlePanel("Overfitting"),
-  tags$style(HTML(".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: #1C2C5B}")),
-  tags$style(HTML(".js-irs-1 .irs-single, .js-irs-1 .irs-bar-edge, .js-irs-1 .irs-bar {background: #1C2C5B}")),
-  tags$style(HTML(".js-irs-2 .irs-single, .js-irs-2 .irs-bar-edge, .js-irs-2 .irs-bar {background: #1C2C5B}")),
+
+ui<-fluidPage(
+  titlePanel("Simpson's Paradox"),
+  
   fluidRow(
-    column(3, wellPanel(
-      sliderInput("n", "Sample Size:", min = 1, max = 1000, value = 5 ,
-                  step = 1),
-      bsPopover("n", "", "Number of Observations", place="right",options = list(container = "body")),
-      
-      sliderInput("p", "True Population Correlation:", min = -1, max = 1 , value = 0,
-                  step = 0.01),
-      
-      bsPopover("p", "", "Move the slider to change true population correlation", place="right",options = list(container = "body")),
-      
-      sliderInput("k", "The Number of Variables:", min = 1, max = 100 , value = 3 ,
-                  step = 1),
-      bsPopover("k", "", "Move the slider to change the number of variables in the model", place="right",options = list(container = "body")),
-      
-      actionButton("plot", "Click here first to Plot"), 
-      bsPopover("plot", "", "There will be a density curve (black line) and a scatterplot (with a red regression line) shown once you click this button. The density plot is the residual between Y and estimated Y with the best picked X (The one that has the strongest correlation with Y) in the model and the scatterplot is plotting the replationship between the best picked X and Y", place="right",options = list(container = "body")),
-      
-      br(),
-      br(),
-      
-      actionButton("validate", "Click here later to Validate"))),
-      bsPopover("validate", "", "There will be a new density curve (blue line) shown once you click this button. This new blue curve is the residual between Y and estimated Y with a randomly picked X in the model", place="right",options = list(container = "body")),
     
-      mainPanel(
+    
+    
+    div(class="col-sm-12 col-md-5 col-lg-3",
         
-        fluidRow(
+        #tags$style(".well{background-color: transparent;border: solid transparent}"),
+        #tags$style(type="text/css", ".well { max-width: 450px; }"),
+        #tags$style(type="text/css", '#leftPanel { width:500px; float:left;}'),
+        #id = "leftPanel",
+        h4("Relationship of SAT scores and Teachers' Salaries"),
+        
+        
+        tableOutput("SAT1"),
+        bsPopover("SAT1", "", "This dataset is about the SAT results by state in 2010. There are 12 selected states with different teachers salaries, SAT scores and SAT participation rates. The variable salary is the average teachers salaries in US dollar; The variable total is the state average SAT score; The variable sat pct is the percent of students taking SAT in that state"),
+        br(),
+        htmlOutput("text2")
+        
+        
+    ),
+    
+    div(class="col-sm-11 col-md-7 col-lg-9",
+        
+        div(
           
-         
-          splitLayout(cellWidths = c("50%", "50%"),
-                     plotOutput("plott"),
-                     plotOutput("scatter"),
-                     bsPopover("plott", "","It seemed like the black curve changes when adding the blue curve, however, this is caused by the scale. In order to fit both the black and blue curves perfectly, the scale must be adjusted", place="bottom",options = list(container = "body"))
-        ))),
+          column(6, offset=3, actionButton("newplot2", h5("Click here first to show the plot"))),
+          bsPopover("newplot2", "", "This plot shows you the original (actual) paradox effect", place="right",options = list(container = "body")),
+          tags$style(HTML(".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: #1C2C5B}")),
+          br(),
+          br(),
+          br(),
+          column(5,offset=2, sliderInput("integer", 
+                                         label = div(style='width:400px;', 
+                                                     div(style='float:left;', 'No Paradox Effect'), 
+                                                     div(style='float:right;', 'Actual Paradox Effect')), 
+                                         min = 0, max = 1, value = 1, width = '400px')),
+          bsPopover("integer", "", "Move the slider to see how the Simpson Paradox effect changes. Default as actual paradox effect, which is the true SAT participation rates in the dataset. No paradox effect is the case that when all states have equal SAT participation rates", place="right", options = list(container = "body"))
+        ),
         
         
-        column(8, offset=7, tableOutput("choose"),
-               bsPopover("choose", "", "Compared the sample best correlation and randomly chosen correlation (In absolute value terms)", place="left")
-               
-               )
         
-      )
-      
-    
-      
-      )   
-      
+        mainPanel( 
+          conditionalPanel("input.newplot2 != 0",
+                           div(class="col-sm-7 col-md-6 col-lg-6", style="left:13%; width:90%; height:80% ",
+                               plotlyOutput("plot2"),
+                               bsPopover("plot2", "", "Hover the point to see more details", placement = "right", options = list(container="body")),
+                               br(),
+                               div(class="col-sm-7 col-md-6 col-lg-6",  style="left:34px",
+                                   img(src="jinglin.jpg", width=350)))))
+        
+        
+    )  
+  )
+)
+
+
+
